@@ -7,7 +7,6 @@ namespace Omnipay\PayTabs\Message\Request;
 use Omnipay\Common\Message\ResponseInterface;
 use Omnipay\PayTabs\Message\Response\RetrieveTransactionResponse;
 use Omnipay\PayTabs\Traits\ParamsTrait;
-use Throwable;
 
 /**
  * Class RetrieveTransactionRequest
@@ -44,23 +43,23 @@ class RetrieveTransactionRequest extends AbstractRequest
      */
     protected function getEndpoint() : string
     {
-        if ($this->getTestMode()) {
-            return 'https://secure-global.paytabs.com/payment/query';
-        }
-
-        return 'https://secure.paytabs.com/payment/query';
+        return 'https://secure-global.paytabs.com/payment/query';
     }
 
     /**
-     * @param $data
-     *
-     * @return \Omnipay\Common\Message\ResponseInterface
-     * @throws \JsonException
+     * @inheritDoc
      */
     public function sendData($data) : ResponseInterface
     {
         try {
-            return parent::sendData($data);
+            $httpResponse = $this->httpClient->request(
+                $this->getHttpMethod(),
+                $this->getEndpoint(),
+                ['Authorization' => $this->getServerKey()],
+                json_encode($data)
+            );
+
+            return $this->response = new RetrieveTransactionResponse($this, $httpResponse->getBody()->getContents(), $httpResponse->getHeaders());
         } catch (Throwable $ex) {
             return new RetrieveTransactionResponse($this, ['message' => $ex->getMessage(), 'code' => (string) $ex->getCode()]);
         }

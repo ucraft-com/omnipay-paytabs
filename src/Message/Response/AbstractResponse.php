@@ -16,20 +16,4 @@ abstract class AbstractResponse extends BaseAbstractResponse
     {
         parent::__construct($request, json_decode($data, true, 512, JSON_THROW_ON_ERROR));
     }
-
-    /**
-     * @inheritDoc
-     */
-    public function getMessage() : ?string
-    {
-        return $this->data['message'] ?? null;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getCode() : ?int
-    {
-        return $this->data['code'] ?? null;
-    }
 }

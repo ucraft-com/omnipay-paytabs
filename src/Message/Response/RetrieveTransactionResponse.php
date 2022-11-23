@@ -24,6 +24,22 @@ class RetrieveTransactionResponse extends AbstractResponse
      */
     public function isSuccessful()
     {
+        return $this->data['payment_result']['response_message'] === self::AUTHORISED;
+    }
 
+    /**
+     * @inheritDoc
+     */
+    public function getCode()
+    {
+        return $this->data['payment_result']['response_code'];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getMessage()
+    {
+        return $this->data['payment_result']['response_message'];
     }
 }
