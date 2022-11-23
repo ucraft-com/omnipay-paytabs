@@ -62,7 +62,11 @@ class PurchaseRequest extends AbstractRequest
      */
     protected function getEndpoint() : string
     {
-        return 'https://secure-global.paytabs.com/payment/request';
+        if ($this->getTestMode()) {
+            return 'https://secure-global.paytabs.com/payment/request';
+        }
+
+        return 'https://secure.paytabs.com/payment/request';
     }
 
     /**
