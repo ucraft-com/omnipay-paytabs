@@ -44,6 +44,10 @@ class RetrieveTransactionRequest extends AbstractRequest
      */
     protected function getEndpoint() : string
     {
+        if ($this->getTestMode()) {
+            return 'https://secure-global.paytabs.com/payment/query';
+        }
+
         return 'https://secure.paytabs.com/payment/query';
     }
 
