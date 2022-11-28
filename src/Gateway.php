@@ -46,7 +46,7 @@ class Gateway extends AbstractGateway
     /**
      * @inheritDoc
      *
-     * @return \Omnipay\Common\Message\AbstractRequest
+     * @return \Omnipay\Common\Message\AbstractRequest|\Omnipay\PayTabs\Message\Request\PurchaseRequest
      */
     public function purchase(array $options = []) : PurchaseRequest
     {

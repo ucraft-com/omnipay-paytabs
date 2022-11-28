@@ -24,8 +24,17 @@ class PurchaseResponse extends AbstractResponse
      */
     public function isSuccessful() : bool
     {
-        return $this->getPaymentStatus() === self::AUTHORISED
-            && !$this->getMessage();
+        return $this->getPaymentStatus() === self::AUTHORISED;
+    }
+
+    /**
+     * Response Message
+     *
+     * @return null|string A response message from the payment gateway
+     */
+    public function getMessage() : ?string
+    {
+        return $this->data['message'] ?? null;
     }
 
     /**

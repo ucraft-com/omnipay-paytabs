@@ -8,6 +8,7 @@ use Omnipay\Common\Message\ResponseInterface;
 use Omnipay\PayTabs\Message\Response\PurchaseResponse;
 use Omnipay\PayTabs\Traits\AuthParamsTrait;
 use Omnipay\PayTabs\Traits\ParamsTrait;
+use Throwable;
 
 /**
  * @method PurchaseResponse send()
@@ -35,14 +36,20 @@ class PurchaseRequest extends AbstractRequest
             'city',
             'country',
             'ip',
-            'payment_token',
         );
 
         $data = [];
         $data['profile_id'] = $this->getProfileId();
         $data['tran_type'] = 'sale';
         $data['tran_class'] = 'ecom';
-        $data['tokenise'] = '2';
+
+        if ($paymentToken = $this->getPaymentToken()) {
+            $data['tokenise'] = '2';
+            $data['payment_token'] = $paymentToken;
+        } elseif ($token = $this->getToken()) {
+            $data['token'] = $token;
+        }
+
         $data['cart_id'] = $this->getCartId();
         $data['cart_currency'] = $this->getCurrency();
         $data['cart_amount'] = $this->getAmount();
@@ -50,9 +57,9 @@ class PurchaseRequest extends AbstractRequest
         $data['paypage_lang'] = $this->getLanguage() ?? '';
         $data['customer_details'] = $this->getCustomerDetails();
         $data['shipping_details'] = $this->getShippingDetails();
+        $data['hide_shipping'] = true;
         $data['return'] = $this->getReturnUrl();
         $data['callback'] = $this->getCallBackUrl() ?? '';
-        $data['payment_token'] = $this->getPaymentToken();
 
         return $data;
     }

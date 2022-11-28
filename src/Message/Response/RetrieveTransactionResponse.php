@@ -42,4 +42,38 @@ class RetrieveTransactionResponse extends AbstractResponse
     {
         return $this->data['payment_result']['response_message'];
     }
+
+    /**
+     * Get customer's token.
+     *
+     * @return string|null
+     */
+    public function getToken() : string|null
+    {
+        return $this->data['token'] ?? null;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPaymentInfo() : array
+    {
+        return $this->data['payment_info'] ?? [];
+    }
+
+    /**
+     * @return string
+     */
+    public function getLastFour() : string
+    {
+        return substr(($this->data['payment_info']['payment_description'] ?? ''), -4);
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCardScheme() : ?string
+    {
+        return $this->data['payment_info']['card_scheme'] ?? null;
+    }
 }
