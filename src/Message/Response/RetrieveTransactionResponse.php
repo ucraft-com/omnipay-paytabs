@@ -15,22 +15,23 @@ use Omnipay\PayTabs\Message\Request\RetrieveTransactionRequest;
  */
 class RetrieveTransactionResponse extends AbstractResponse
 {
-    public const AUTHORISED = 'Authorised';
+    /** Authorised success status code  */
+    public const AUTH_STATUS_SUCCESS = 'A';
 
     /**
      * This is the final result if there is no redirection (for example 3D).
      *
      * {@inheritdoc}
      */
-    public function isSuccessful()
+    public function isSuccessful() : bool
     {
-        return $this->data['payment_result']['response_message'] === self::AUTHORISED;
+        return $this->getPaymentStatus() === self::AUTH_STATUS_SUCCESS;
     }
 
     /**
      * @inheritDoc
      */
-    public function getCode()
+    public function getCode() : string
     {
         return $this->data['payment_result']['response_code'];
     }
@@ -38,8 +39,56 @@ class RetrieveTransactionResponse extends AbstractResponse
     /**
      * @inheritDoc
      */
-    public function getMessage()
+    public function getMessage() : string
     {
         return $this->data['payment_result']['response_message'];
+    }
+
+    /**
+     * Get customer's token.
+     *
+     * @return string|null
+     */
+    public function getToken() : string|null
+    {
+        return $this->data['token'] ?? null;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPaymentInfo() : array
+    {
+        return $this->data['payment_info'] ?? [];
+    }
+
+    /**
+     * @return string
+     */
+    public function getLastFour() : string
+    {
+        return substr(($this->data['payment_info']['payment_description'] ?? ''), -4);
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCardScheme() : ?string
+    {
+        return $this->data['payment_info']['card_scheme'] ?? null;
+    }
+
+    /**
+     * Get the payment status.
+     *
+     * @return string|null
+     */
+    public function getPaymentStatus() : string|null
+    {
+        if (isset($this->data['payment_result'])) {
+            return $this->data['payment_result']['response_status'] ?? null;
+        }
+
+        return null;
     }
 }

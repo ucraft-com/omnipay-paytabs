@@ -15,7 +15,8 @@ use Omnipay\PayTabs\Message\Request\PurchaseRequest;
  */
 class PurchaseResponse extends AbstractResponse
 {
-    public const AUTHORISED = 'Authorised';
+    /** Authorised success status code  */
+    public const AUTH_STATUS_SUCCESS = 'A';
 
     /**
      * This is the final result if there is no redirection (for example 3D).
@@ -24,8 +25,21 @@ class PurchaseResponse extends AbstractResponse
      */
     public function isSuccessful() : bool
     {
-        return $this->getPaymentStatus() === self::AUTHORISED
-            && !$this->getMessage();
+        return $this->getPaymentStatus() === self::AUTH_STATUS_SUCCESS;
+    }
+
+    /**
+     * Response Message
+     *
+     * @return null|string A response message from the payment gateway
+     */
+    public function getMessage() : ?string
+    {
+        if (isset($this->data['payment_result'])) {
+            return $this->data['payment_result']['response_message'] ?? null;
+        }
+
+        return $this->data['message'] ?? null;
     }
 
     /**
@@ -74,7 +88,7 @@ class PurchaseResponse extends AbstractResponse
     public function getPaymentStatus() : string|null
     {
         if (isset($this->data['payment_result'])) {
-            return $this->data['payment_result']['response_message'] ?? null;
+            return $this->data['payment_result']['response_status'] ?? null;
         }
 
         return null;
