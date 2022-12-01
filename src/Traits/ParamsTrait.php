@@ -444,11 +444,11 @@ trait ParamsTrait
     /**
      * Get the payment token.
      *
-     * @return string
+     * @return string|null
      */
-    public function getPaymentToken() : string
+    public function getPaymentToken() : ?string
     {
-        return (string) $this->getParameter('payment_token');
+        return $this->getParameter('payment_token') ?? null;
     }
 
     /**
@@ -523,12 +523,22 @@ trait ParamsTrait
     /**
      * Set the transaction reference.
      *
-     * @param string $value
+     * @param $value
      *
      * @return $this
      */
     public function setTransactionReference($value)
     {
         return $this->setParameter('tran_ref', $value);
+    }
+
+    /**
+     * Get the card token.
+     *
+     * @return string|null
+     */
+    public function getToken() : ?string
+    {
+        return $this->getParameter('token') ?? null;
     }
 }
