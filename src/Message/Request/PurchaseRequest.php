@@ -41,13 +41,15 @@ class PurchaseRequest extends AbstractRequest
         $data = [];
         $data['profile_id'] = $this->getProfileId();
         $data['tran_type'] = 'sale';
-        $data['tran_class'] = 'ecom';
 
         if ($paymentToken = $this->getPaymentToken()) {
+            $data['tran_class'] = 'ecom';
             $data['tokenise'] = '2';
             $data['payment_token'] = $paymentToken;
         } elseif ($token = $this->getToken()) {
             $data['token'] = $token;
+            $data['tran_class'] = 'recurring';
+            $data['tran_ref'] = $this->getTransactionReference();
         }
 
         $data['cart_id'] = $this->getCartId();
@@ -89,7 +91,7 @@ class PurchaseRequest extends AbstractRequest
                 json_encode($data)
             );
 
-            return $this->response = new PurchaseResponse($this, $httpResponse->getBody()->getContents(), $httpResponse->getHeaders());
+            return $this->response = new PurchaseResponse($this, $httpResponse->getBody()->getContents());
         } catch (Throwable $ex) {
             return new PurchaseResponse($this, ['message' => $ex->getMessage(), 'code' => (string) $ex->getCode()]);
         }

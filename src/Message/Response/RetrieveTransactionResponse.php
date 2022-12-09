@@ -91,4 +91,12 @@ class RetrieveTransactionResponse extends AbstractResponse
 
         return null;
     }
+
+    /**
+     * @return string|null
+    */
+    public function getTransactionReference() : ?string
+    {
+        return $this->data['tran_ref'] ?? null;
+    }
 }

@@ -490,7 +490,7 @@ trait ParamsTrait
      *
      * @return string|null
      */
-    public function getCallbackUrl() : string|null
+    public function getCallbackUrl() : ?string
     {
         return $this->getParameter('callback');
     }

@@ -51,11 +51,11 @@ class PurchaseResponse extends AbstractResponse
     }
 
     /**
-     * Get the reference of the transaction .
+     * Get the reference of the transaction.
      *
      * @return string|null
      */
-    public function getTransactionReference() : null|string
+    public function getTransactionReference() : ?string
     {
         return $this->data['tran_ref'] ?? null;
     }
@@ -75,7 +75,7 @@ class PurchaseResponse extends AbstractResponse
      *
      * @return string|null
      */
-    public function getToken() : string|null
+    public function getToken() : ?string
     {
         return $this->data['token'] ?? null;
     }
@@ -85,7 +85,7 @@ class PurchaseResponse extends AbstractResponse
      *
      * @return string|null
      */
-    public function getPaymentStatus() : string|null
+    public function getPaymentStatus() : ?string
     {
         if (isset($this->data['payment_result'])) {
             return $this->data['payment_result']['response_status'] ?? null;

@@ -7,6 +7,7 @@ namespace Omnipay\PayTabs\Message\Request;
 use Omnipay\Common\Message\ResponseInterface;
 use Omnipay\PayTabs\Message\Response\RetrieveTransactionResponse;
 use Omnipay\PayTabs\Traits\ParamsTrait;
+use Throwable;
 
 /**
  * Class RetrieveTransactionRequest
@@ -63,7 +64,7 @@ class RetrieveTransactionRequest extends AbstractRequest
                 json_encode($data)
             );
 
-            return $this->response = new RetrieveTransactionResponse($this, $httpResponse->getBody()->getContents(), $httpResponse->getHeaders());
+            return $this->response = new RetrieveTransactionResponse($this, $httpResponse->getBody()->getContents());
         } catch (Throwable $ex) {
             return new RetrieveTransactionResponse($this, ['message' => $ex->getMessage(), 'code' => (string) $ex->getCode()]);
         }
