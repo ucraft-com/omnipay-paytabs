@@ -242,11 +242,11 @@ trait ParamsTrait
     /**
      * Get shipping name.
      *
-     * @return string
+     * @return string|null
      */
-    public function getShippingName() : string
+    public function getShippingName() : ?string
     {
-        return $this->getParameter('name');
+        return $this->getParameter('shipping_name');
     }
 
     /**
@@ -254,31 +254,31 @@ trait ParamsTrait
      *
      * @return $this
      */
-    public function setShippingName(string $value) : static
+    public function setShippingName(?string $value) : static
     {
-        return $this->setParameter('name', $value);
+        return $this->setParameter('shipping_name', $value);
     }
 
     /**
      * Get shipping email.
      *
-     * @return string
+     * @return string|null
      */
-    public function getShippingEmail() : string
+    public function getShippingEmail() : ?string
     {
-        return $this->getParameter('email');
+        return $this->getParameter('shipping_email');
     }
 
     /**
      * Set shipping email.
      *
-     * @param string $value
+     * @param string|null $value
      *
      * @return $this
      */
-    public function setShippingEmail(string $value) : static
+    public function setShippingEmail(?string $value) : static
     {
-        return $this->setParameter('email', $value);
+        return $this->setParameter('shipping_email', $value);
     }
 
     /**
@@ -286,9 +286,9 @@ trait ParamsTrait
      *
      * @return string|null
      */
-    public function getShippingPhone() : string|null
+    public function getShippingPhone() : ?string
     {
-        return $this->getParameter('phone');
+        return $this->getParameter('shipping_phone');
     }
 
     /**
@@ -298,111 +298,119 @@ trait ParamsTrait
      *
      * @return $this
      */
-    public function setShippingPhone(string|null $value) : static
+    public function setShippingPhone(?string $value) : static
     {
-        return $this->setParameter('phone', $value);
+        return $this->setParameter('shipping_phone', $value);
     }
 
     /**
      * Get shipping address.
      *
-     * @return string
+     * @return string|null
      */
-    public function getShippingAddress() : string
+    public function getShippingAddress() : ?string
     {
-        return $this->getParameter('street1');
+        return $this->getParameter('shipping_street1');
     }
 
     /**
      * Set shipping address.
      *
-     * @param string $value
+     * @param string|null $value
      *
      * @return $this
      */
-    public function setShippingAddress(string $value) : static
+    public function setShippingAddress(?string $value) : static
     {
-        return $this->setParameter('street1', $value);
+        return $this->setParameter('shipping_street1', $value);
     }
 
     /**
      * Get shipping city.
      *
-     * @return string
+     * @return string|null
      */
-    public function getShippingCity() : string
+    public function getShippingCity() : ?string
     {
-        return $this->getParameter('city');
+        return $this->getParameter('shipping_city');
     }
 
     /**
      * Set shipping city.
      *
+     * @param string|null $value
+     *
      * @return $this
      */
-    public function setShippingCity(string $value) : static
+    public function setShippingCity(?string $value) : static
     {
-        return $this->setParameter('city', $value);
+        return $this->setParameter('shipping_city', $value);
     }
 
     /**
      * Get shipping state.
      *
-     * @return string
+     * @return string|null
      */
-    public function getShippingState() : string
+    public function getShippingState() : ?string
     {
-        return $this->getParameter('state');
+        return $this->getParameter('shipping_state');
     }
 
     /**
      * Set shipping state.
      *
+     * @param string|null $value
+     *
      * @return $this
      */
-    public function setShippingState(string $value) : static
+    public function setShippingState(?string $value) : static
     {
-        return $this->setParameter('state', $value);
+        return $this->setParameter('shipping_state', $value);
     }
 
     /**
      * Get shipping country.
      *
-     * @return string
+     * @return string|null
      */
-    public function getShippingCountry() : string
+    public function getShippingCountry() : ?string
     {
-        return $this->getParameter('country');
+        return $this->getParameter('shipping_country');
     }
 
     /**
      * Set shipping country.
      *
+     * @param string|null $value
+     *
      * @return $this
      */
-    public function setShippingCountry(string $value) : static
+    public function setShippingCountry(?string $value) : static
     {
-        return $this->setParameter('country', $value);
+        return $this->setParameter('shipping_country', $value);
     }
 
     /**
      * Get shipping zip.
      *
-     * @return string
+     * @return string|null
      */
-    public function getShippingZip() : string
+    public function getShippingZip() : ?string
     {
-        return $this->getParameter('zip');
+        return $this->getParameter('shipping_zip');
     }
 
     /**
      * Set shipping zip.
      *
+     * @param string|null $value
+     *
      * @return $this
      */
-    public function setShippingZip(string $value) : static
+    public function setShippingZip(?string $value) : static
     {
-        return $this->setParameter('zip', $value);
+        return $this->setParameter('shipping_zip', $value);
     }
 
     /**
