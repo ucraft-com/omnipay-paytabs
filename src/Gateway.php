@@ -8,6 +8,7 @@ use Omnipay\Common\AbstractGateway;
 use Omnipay\Common\Message\NotificationInterface;
 use Omnipay\Common\Message\RequestInterface;
 use Omnipay\PayTabs\Message\Request\PurchaseRequest;
+use Omnipay\PayTabs\Message\Request\RefundRequest;
 use Omnipay\PayTabs\Message\Request\RetrieveTransactionRequest;
 use Omnipay\PayTabs\Traits\AuthParamsTrait;
 use Omnipay\PayTabs\Traits\ParamsTrait;
@@ -19,7 +20,6 @@ use Omnipay\PayTabs\Traits\ParamsTrait;
  * @method RequestInterface authorize(array $options = array())
  * @method RequestInterface completeAuthorize(array $options = array())
  * @method RequestInterface capture(array $options = array())
- * @method RequestInterface refund(array $options = array())
  * @method RequestInterface fetchTransaction(array $options = [])
  * @method RequestInterface void(array $options = array())
  * @method RequestInterface createCard(array $options = array())
@@ -63,5 +63,15 @@ class Gateway extends AbstractGateway
     public function retrieveTransaction(array $options = []) : RetrieveTransactionRequest
     {
         return $this->createRequest(RetrieveTransactionRequest::class, $options);
+    }
+
+    /**
+     * @inheritDoc
+     *
+     * @return \Omnipay\Common\Message\AbstractRequest|\Omnipay\PayTabs\Message\Request\RefundRequest
+     */
+    public function refund(array $options = []) : RefundRequest
+    {
+        return $this->createRequest(RefundRequest::class, $options);
     }
 }
